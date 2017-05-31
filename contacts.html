@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+	<head>
+		<title>CDcontacts</title>
+		<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+		<link rel="stylesheet" href="style.css">
+		<script>
+			function adduser(str)
+			{
+				var dat = str.split("&");
+				var appenddata = "<li class=usr><h2>"
+
+				appenddata+=dat[0].split("=")[1].replace(/\+/g," ");
+				appenddata+=" ";
+				appenddata+=dat[1].split("=")[1].replace(/\+/g," ");
+				appenddata+="</h2><p>click for description</p><p class=hid>"
+				appenddata+=dat[2].split("=")[1].replace(/\+/g," ").replace(/\%3B/g,";");
+				console.log(dat[2].split("=")[1].replace(/\+/g," "));
+				appenddata+="</p>"	
+
+				appenddata+="<li>";
+				console.log(appenddata);
+				$('#last').append(appenddata);
+				$('.hid').slideUp();
+				
+				$('.usr:last').click(function(){console.log("blah");$(this).children().slideToggle();});
+			}
+			function slid(){$(this).children().slideToggle();}
+			$(document).ready(function(){
+
+				$('#myform').submit(function(){
+					adduser($(this).serialize());
+					return false;
+				});
+				$('#sub').click(function(){$('#myform').submit();console.log("hello");});	
+			});
+		</script>
+	</head>
+	<body>
+		<form id=myform>
+		<ul id=first>
+			<li>First name:<input type="text" name="first"></li>
+			<li>Last name:<input type="text" name="last"></li>
+			<li>Description:<input type="text" name="desc" placeholder="Enter description"></li>
+			<li><button type="button" id="sub">add user</button></li>
+		</ul>
+		</form>
+		<ul id=last>
+			<li><h2>Users</h2><li>
+		<ul>
+
+	</body>
+</html>
